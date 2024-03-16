@@ -71,7 +71,6 @@ const HomeScreen = ({ navigation, topPlacesData }) => (
   <View style={styles.container}>
     <Header />
       <TopPlacesCarousel list={topPlacesData} handlePress={(item) => handlePress(navigation, item)} />
-      <Text>Hello</Text>
     <Favorites />
   </View>
 );

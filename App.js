@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -11,6 +11,8 @@ import JosScreen from './screens/jos'; // Import the screen component for NRC
 import JonScreen from './screens/jon'; // Import the screen component for NRC
 import ArcScreen from './screens/arc'; // Import the screen component for NRC
 import InfoScreen from './screens/components/info'; 
+import * as FileSystem from 'expo-file-system';
+import axios from 'axios';
 
 const Stack = createStackNavigator();
 

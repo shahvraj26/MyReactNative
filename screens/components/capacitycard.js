@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const CapacityCard = ({ title, capacity }) => {
+const CapacityCard = ({ title, capacity, lastUpdated }) => {
   return (
     <View style={styles.card}>
       <Text style={styles.cardTitle}>{title}</Text>
@@ -9,6 +9,7 @@ const CapacityCard = ({ title, capacity }) => {
         <View style={[styles.progress, { width: `${capacity}%` }]}></View>
       </View>
       <Text style={styles.capacityText}>{capacity}% Capacity</Text>
+      <Text style={styles.lastUpdatedText}>Last Updated: {lastUpdated}</Text>
     </View>
   );
 };
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 20,
     marginBottom: 10,
-    width:  350,
+    width: 350,
   },
   cardTitle: {
     fontSize: 20,
@@ -41,6 +42,11 @@ const styles = StyleSheet.create({
   capacityText: {
     color: 'white',
     fontSize: 16,
+  },
+  lastUpdatedText: {
+    color: 'white',
+    fontSize: 12,
+    marginTop: 5,
   },
 });
 

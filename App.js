@@ -11,8 +11,7 @@ import JosScreen from './screens/jos'; // Import the screen component for NRC
 import JonScreen from './screens/jon'; // Import the screen component for NRC
 import ArcScreen from './screens/arc'; // Import the screen component for NRC
 import InfoScreen from './screens/components/info'; 
-import * as FileSystem from 'expo-file-system';
-import axios from 'axios';
+import CalendarScreen from './screens/components/CalendarScreen'; 
 
 const Stack = createStackNavigator();
 
@@ -63,6 +62,7 @@ export default function App() {
         <Stack.Screen options={{ headerShown: false }} name="ARC" component={ArcScreen} />
         <Stack.Screen options={{ headerShown: false }} name="JOS" component={JosScreen} />
         <Stack.Screen options={{ headerShown: false }} name="InfoScreen" component={InfoScreen} />
+        <Stack.Screen options={{ headerShown: false }} name="CalendarScreen" component={CalendarScreen} />
         {/* Add more screens as needed */}
       </Stack.Navigator>
     </NavigationContainer>

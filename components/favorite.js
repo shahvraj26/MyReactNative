@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    bottom: 250, // Adjust as needed to position the Favorites component
+    bottom: 310, // Adjust as needed to position the Favorites component
     left: 10, // Adjust as needed to position the Favorites component
   },
   text: {

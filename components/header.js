@@ -11,7 +11,7 @@ const Header = () => (
 const styles = StyleSheet.create({
   logoContainer: {
     alignItems: 'center',
-    marginTop: 390, // Adjust as needed
+    marginTop: 350, // Adjust as needed
   },
   logo: {
     width: 50, // Adjust as needed

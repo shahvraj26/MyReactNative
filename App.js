@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import * as ScreenOrientation from 'expo-screen-orientation';
 import TopPlacesCarousel from './components/carousel'; // Import the TopPlacesCarousel component
 import Header from './components/header';
 import Favorites from './components/favorite';
@@ -56,6 +57,10 @@ export default function App() {
       }te
     }
   };
+  useEffect(() => {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+  }, []);
+
   // Dummy data for the carousel
   const topPlacesData = [
     { id: '1', title: 'RPAC',image: require('./images/image1.jpg') },

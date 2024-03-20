@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faPhone, faMapMarkerAlt, faEnvelope, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faPhone, faMapMarkerAlt, faEnvelope, faArrowLeft, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { WebView } from 'react-native-webview'; 
 
 const InfoScreen = ({ route }) => {
@@ -13,11 +13,17 @@ const InfoScreen = ({ route }) => {
     navigation.goBack();
   };
 
+  const handleHomePress = () => {
+    navigation.navigate('Home');
+  }
+
+
   return (
+    <SafeAreaView style={styles.container}>
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-          <FontAwesomeIcon icon={faArrowLeft} size={35} style={styles.icon} />
+          <FontAwesomeIcon icon={faAngleLeft} size={35} style={styles.icon} />
         </TouchableOpacity>
         <View style={styles.logoContainer}>
           <Image source={require('../../images/logo.png')} style={styles.logo} />
@@ -47,11 +53,17 @@ const InfoScreen = ({ route }) => {
           <Text style={styles.infoText}>recsports@osu.edu</Text>
         </View>
       </View>
+      <View style={styles.navBar}>
+        <TouchableOpacity onPress={handleHomePress} style={styles.navItem}>
+          <Image source={require('../../images/home_button.png')} style={styles.home} />
+        </TouchableOpacity>
+      </View>
       <WebView
-        source={{ html: `<iframe src="${url}" width="1000" height="800" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>` }}
+        source={{ html: `<iframe src="${url}" width="1000" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>` }}
         style={styles.map}
       />
     </View>
+    </SafeAreaView>
   );
 };
 
@@ -65,14 +77,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 90,
+    paddingTop: 20,
   },
   backButton: {
     position: 'absolute',
     left: 16,
   },
   icon: {
-    color: 'red',
+    color: '#D30000',
   },
   logoContainer: {
     flex: 1,
@@ -119,6 +131,25 @@ const styles = StyleSheet.create({
   map: {
     borderRadius: 20,
     backgroundColor: 'transparent',
+  },
+  navBar: {
+    position: 'absolute', // Position absolutely
+    left: 0, // Align to the left edge
+    right: 0, // Align to the right edge
+    bottom: -35, // Align to the bottom edge
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#D30000', // Choose your nav bar color
+    height: 85, // Set the height of the navigation bar
+  },
+  navItem: {
+    padding: 10,
+  },
+  home: {
+    marginBottom: 30,
+    width: 45,
+    height: 45,
   },
 });
 

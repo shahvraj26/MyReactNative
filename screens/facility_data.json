@@ -1,72 +1,72 @@
 [
-    {
-      "capacity": "7 out of 55",
-      "lastupdated": "Open / Last updated: 1:49 p.m.",
-      "title": "1st Floor Fitness Balcony"
-    },
-    {
-      "capacity": "3 out of 37",
-      "lastupdated": "Open / Last updated: 1:49 p.m.",
-      "title": "2nd Floor Cardio Loft"
-    },
-    {
-      "capacity": "4 out of 50",
-      "lastupdated": "Open / Last updated: 2:33 p.m.",
-      "title": "Aquatic Center Class Pool"
-    },
-    {
-      "capacity": "0 out of 50",
-      "lastupdated": "Closed / Last updated: 4:35 p.m.",
-      "title": "Aquatic Center Comp Pool"
-    },
-    {
-      "capacity": "3 out of 50",
-      "lastupdated": "Open / Last updated: 2:53 p.m.",
-      "title": "Aquatic Center Lap Pool"
-    },
-    {
-      "capacity": "7 out of 50",
-      "lastupdated": "Open / Last updated: 2:53 p.m.",
-      "title": "Aquatic Center Leisure Pool"
-    },
-    {
-      "capacity": "6 out of 68",
-      "lastupdated": "Open / Last updated: 1:49 p.m.",
-      "title": "Cardio Canyon"
-    },
-    {
-      "capacity": "18 out of 230",
-      "lastupdated": "Open / Last updated: 1:49 p.m.",
-      "title": "North Gym"
-    },
-    {
-      "capacity": "26 out of 230",
-      "lastupdated": "Open / Last updated: 1:49 p.m.",
-      "title": "South Gym"
-    },
-    {
-      "capacity": "10 out of 241",
-      "lastupdated": "Open / Last updated: 1:49 p.m.",
-      "title": "TWD Gym Courts 1-2"
-    },
-    {
-      "capacity": "15 out of 241",
-      "lastupdated": "Open / Last updated: 1:49 p.m.",
-      "title": "TWD Gym Courts 3 - 4"
-    },
-    {
-      "capacity": "0 out of 241",
-      "lastupdated": "Open / Last updated: 1:49 p.m.",
-      "title": "Upper Gym Courts 1 - 2"
-    },
-    {
-      "capacity": "13 out of 241",
-      "lastupdated": "Open / Last updated: 1:49 p.m.",
-      "title": "Upper Gym Courts 3 - 4"
-    },
-    {
-      "capacity": "30 out of 125",
-      "lastupdated": "Open / Last updated: 1:49 p.m.",
-      "title": "Weight Floor"
-    }
-  ]
+  {
+    "capacity": "13 out of 55",
+    "lastupdated": "Open / Last updated: 6:50 p.m.",
+    "title": "1st Floor Fitness Balcony"
+  },
+  {
+    "capacity": "8 out of 37",
+    "lastupdated": "Open / Last updated: 6:49 p.m.",
+    "title": "2nd Floor Cardio Loft"
+  },
+  {
+    "capacity": "0 out of 50",
+    "lastupdated": "Open / Last updated: 6:42 p.m.",
+    "title": "Aquatic Center Class Pool"
+  },
+  {
+    "capacity": "0 out of 50",
+    "lastupdated": "Closed / Last updated: 4:35 p.m.",
+    "title": "Aquatic Center Comp Pool"
+  },
+  {
+    "capacity": "5 out of 50",
+    "lastupdated": "Open / Last updated: 6:42 p.m.",
+    "title": "Aquatic Center Lap Pool"
+  },
+  {
+    "capacity": "4 out of 50",
+    "lastupdated": "Open / Last updated: 6:42 p.m.",
+    "title": "Aquatic Center Leisure Pool"
+  },
+  {
+    "capacity": "13 out of 68",
+    "lastupdated": "Open / Last updated: 6:50 p.m.",
+    "title": "Cardio Canyon"
+  },
+  {
+    "capacity": "23 out of 230",
+    "lastupdated": "Open / Last updated: 6:50 p.m.",
+    "title": "North Gym"
+  },
+  {
+    "capacity": "5 out of 230",
+    "lastupdated": "Open / Last updated: 6:50 p.m.",
+    "title": "South Gym"
+  },
+  {
+    "capacity": "8 out of 241",
+    "lastupdated": "Open / Last updated: 6:50 p.m.",
+    "title": "TWD Gym Courts 1-2"
+  },
+  {
+    "capacity": "9 out of 241",
+    "lastupdated": "Open / Last updated: 6:50 p.m.",
+    "title": "TWD Gym Courts 3 - 4"
+  },
+  {
+    "capacity": "2 out of 241",
+    "lastupdated": "Open / Last updated: 6:49 p.m.",
+    "title": "Upper Gym Courts 1 - 2"
+  },
+  {
+    "capacity": "1 out of 241",
+    "lastupdated": "Open / Last updated: 6:49 p.m.",
+    "title": "Upper Gym Courts 3 - 4"
+  },
+  {
+    "capacity": "61 out of 125",
+    "lastupdated": "Open / Last updated: 6:50 p.m.",
+    "title": "Weight Floor"
+  }
+]

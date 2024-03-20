@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
-import * as ScreenOrientation from 'expo-screen-orientation';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import TopPlacesCarousel from './components/carousel'; // Import the TopPlacesCarousel component
@@ -41,6 +40,22 @@ const handlePress = (navigation, item) => {
 };
 
 export default function App() {
+
+  const [favoriteGyms, setFavoriteGyms] = useState([]);
+
+  // Add or remove gym from favorites
+  const toggleFavorite = (gymId) => {
+    if (favoriteGyms.some(favGym => favGym.id === gymId)) {
+      // Remove gym from favorites
+      setFavoriteGyms(prev => prev.filter(favGym => favGym.id !== gymId));
+    } else {
+      // Add gym to favorites
+      const gymToAdd = topPlacesData.find(gym => gym.id === gymId);
+      if (gymToAdd) {
+        setFavoriteGyms(prev => [...prev, gymToAdd]);
+      }te
+    }
+  };
   // Dummy data for the carousel
   const topPlacesData = [
     { id: '1', title: 'RPAC',image: require('./images/image1.jpg') },

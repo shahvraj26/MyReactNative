@@ -77,11 +77,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 20,
+    paddingTop: 45,
   },
   backButton: {
     position: 'absolute',
-    left: 16,
+    left: 0,
+    top: 10,
   },
   icon: {
     color: '#D30000',

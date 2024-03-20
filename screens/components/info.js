@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPhone, faMapMarkerAlt, faEnvelope, faArrowLeft, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { WebView } from 'react-native-webview'; 
+import NavBar from './navbar';
 
 const InfoScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -15,7 +16,7 @@ const InfoScreen = ({ route }) => {
 
   const handleHomePress = () => {
     navigation.navigate('Home');
-  }
+  };
 
 
   return (
@@ -53,13 +54,9 @@ const InfoScreen = ({ route }) => {
           <Text style={styles.infoText}>recsports@osu.edu</Text>
         </View>
       </View>
-      <View style={styles.navBar}>
-        <TouchableOpacity onPress={handleHomePress} style={styles.navItem}>
-          <Image source={require('../../images/home_button.png')} style={styles.home} />
-        </TouchableOpacity>
-      </View>
+      <NavBar onHomePress={handleHomePress} />
       <WebView
-        source={{ html: `<iframe src="${url}" width="1000" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>` }}
+        source={{ html: `<iframe src="${url}" width="1000" height="700" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>` }}
         style={styles.map}
       />
     </View>
@@ -132,25 +129,9 @@ const styles = StyleSheet.create({
   map: {
     borderRadius: 20,
     backgroundColor: 'transparent',
-  },
-  navBar: {
-    position: 'absolute', // Position absolutely
-    left: 0, // Align to the left edge
-    right: 0, // Align to the right edge
-    bottom: -35, // Align to the bottom edge
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#D30000', // Choose your nav bar color
-    height: 85, // Set the height of the navigation bar
-  },
-  navItem: {
-    padding: 10,
-  },
-  home: {
-    marginBottom: 30,
-    width: 45,
-    height: 45,
+    height: 250
+    ,
+    flex: 0,
   },
 });
 

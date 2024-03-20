@@ -1,8 +1,10 @@
-import React from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
-import { colors, sizes } from '../constants/theme';
-import ScreenGym from './components/screenGym'; // Assuming you have a Header component
-import image1 from '../images/image2.jpg'; // Import the image
+import React, { useRef, useState, useEffect } from 'react';
+import { View, StyleSheet, Animated } from 'react-native';
+import ScreenGym from './components/screenGym';
+import image1 from '../images/image1.jpg'; // Import the image
+import CapacityCard from './components/capacitycard';
+
+import facilityData from './nrc_data.json'; 
 
 const title = "North Recreation Center";
 
@@ -14,12 +16,44 @@ const nrcInfo = {
 };
 
 const NrcScreen = ({ navigation }) => {
-    const handleInfoPress = () => {
-        navigation.navigate('InfoScreen', nrcInfo);
-      };
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const [capacityData, setCapacityData] = useState(facilityData);
+
+  const handleInfoPress = () => {
+    navigation.navigate('InfoScreen', nrcInfo);
+  };
+
+  const opacity = scrollY.interpolate({
+    inputRange: [50, 100],
+    outputRange: [0.9, 1],
+    extrapolate: 'clamp',
+  });
+
   return (
     <View style={styles.container}>
       <ScreenGym title={title} image={image1} onInfoPress={handleInfoPress} />
+      <Animated.View style={[styles.cardsContainer, { opacity }]}>
+        <Animated.ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+            { useNativeDriver: true }
+          )}
+          scrollEventThrottle={16}
+        >
+          <View style={styles.capacityContainer}>
+            {/* Map over the capacity data and render CapacityCard components */}
+            {capacityData.map((data, index) => (
+              <CapacityCard
+                key={index}
+                title={data.title}
+                capacity={data.capacity}
+                lastUpdated={data.lastupdated}
+              />
+            ))}
+          </View>
+        </Animated.ScrollView>
+      </Animated.View>
     </View>
   );
 };
@@ -28,7 +62,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
+  },
+  cardsContainer: {
+    flex: 1,
+    paddingTop: 80, // Adjust the paddingTop to create space
+  },
+  scrollContainer: {
     alignItems: 'center',
+  },
+  capacityContainer: {
+    alignItems: 'center',
+    marginTop: 10,
   },
 });
 

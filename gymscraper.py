@@ -1,23 +1,21 @@
-from flask import Flask, jsonify
+from flask import Flask
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import time
+import requests
+import json
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
-def get_facility_data():
+def scrape_facility_data(url, filename):
     # Launch the Chrome browser
     driver = webdriver.Chrome()
-
-    # URL of the website to scrape
-    url = "https://recsports.osu.edu/fms/facilities/rpac"
 
     # Load the webpage
     driver.get(url)
 
     # Wait for dynamic content to load (adjust the sleep time as needed)
-    time.sleep(5)
+    time.sleep(3)
 
     # Get the page source after dynamic content has loaded
     page_source = driver.page_source
@@ -48,14 +46,36 @@ def get_facility_data():
         # Close the browser
         driver.quit()
 
-        # Return the facility data as JSON
-        return jsonify(facility_data)
+        # Save the JSON data to a file
+        with open(filename, 'w') as file:
+            json.dump(facility_data, file)
+
+        print(f'Data from {url} saved successfully.')
 
     else:
         # Close the browser
         driver.quit()
+        print(f'Error: Location info div not found for {url}')
 
-        return jsonify({'error': 'Location info div not found'})
+
+@app.route('/', methods=['GET'])
+def get_facility_data():
+    # URLs and corresponding filenames
+    urls = [
+        ("https://recsports.osu.edu/fms/facilities/rpac", "screens/rpac_data.json"),
+        ("https://recsports.osu.edu/fms/facilities/arc", "screens/arc_data.json"),
+        ("https://recsports.osu.edu/fms/facilities/nrc", "screens/nrc_data.json"),
+        ("https://recsports.osu.edu/fms/facilities/jos", "screens/jos_data.json"),
+        ("https://recsports.osu.edu/fms/facilities/jon", "screens/jon_data.json")
+    ]
+
+    # Scrape data from each URL and save to corresponding file
+    for url, filename in urls:
+        scrape_facility_data(url, filename)
+
+    return 'Data scraped and saved to files.'
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    while True:
+        app.run(debug=True)
+        time.sleep(3000)

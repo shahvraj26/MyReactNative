@@ -6,7 +6,7 @@ import CapacityCard from './components/capacitycard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as FileSystem from 'expo-file-system';
 import axios from 'axios';
-import facilityData from './facility_data.json'; 
+import facilityData from './rpac_data.json'; 
 
 const title = "Recreation & Physical Center";
 

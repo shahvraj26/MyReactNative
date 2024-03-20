@@ -1,19 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { AntDesign } from '@expo/vector-icons'; // Import AntDesign icon library
 
 const CapacityCard = ({ title, capacity, lastUpdated }) => {
   const navigation = useNavigation();
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const handleCardPress = () => {
     // Navigate to the specific screen when the capacity card is pressed
     navigation.navigate('CalendarScreen', { title });
   };
 
+  const handleFavoritePress = () => {
+    setIsFavorite(!isFavorite);
+    // Here you can add code to handle adding/removing the card from favorites
+  };
+
   return (
     <TouchableOpacity onPress={handleCardPress}>
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>{title}</Text>
+        <View style={styles.header}>
+          <Text style={styles.cardTitle}>{title}</Text>
+          <TouchableOpacity onPress={handleFavoritePress}>
+            <AntDesign
+              name={isFavorite ? 'star' : 'staro'}
+              size={24}
+              color={isFavorite ? 'gold' : 'grey'}
+              style={styles.favoriteIcon}
+            />
+          </TouchableOpacity>
+        </View>
         <View style={styles.progressBar}>
           <View style={[styles.progress, { width: `${capacity}%` }]}></View>
         </View>
@@ -32,11 +49,19 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: 350,
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
   cardTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
-    marginBottom: 10,
+  },
+  favoriteIcon: {
+    marginLeft: 10,
   },
   progressBar: {
     backgroundColor: '#555',

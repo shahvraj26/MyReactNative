@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons'; // Import AntDesign icon library
 
-const CapacityCard = ({ title, capacity, lastUpdated }) => {
+const CapacityCard = ({ title, capacity, lastUpdated, toggleFavorite }) => {
   const navigation = useNavigation();
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -15,6 +15,7 @@ const CapacityCard = ({ title, capacity, lastUpdated }) => {
   const handleFavoritePress = () => {
     setIsFavorite(!isFavorite);
     // Here you can add code to handle adding/removing the card from favorites
+    toggleFavorite({ id: title, title, capacity, lastUpdated });
   };
 
   return (

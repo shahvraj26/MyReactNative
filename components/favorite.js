@@ -1,13 +1,37 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; // Assuming you're using Expo for icons
+import CapacityCard from '../screens/components/capacitycard'; // Import the CapacityCard component
 
-const Favorites = () => (
-  <View style={styles.container}>
-    <FontAwesome name="star" size={24} color="yellow" style={styles.icon} />
-    <Text style={styles.text}>Favorites</Text>
-  </View>
-);
+const Favorites = ({ favoriteGyms, onToggleFavorite }) => {
+  // If favoriteGyms is not empty, render the favorite gyms
+  if (!favoriteGyms || favoriteGyms.length === 0) {
+    // Render a message or placeholder when the array is empty
+    return (
+      <View style={styles.container}>
+        <FontAwesome name="star" size={24} color="yellow" style={styles.icon} />
+        <Text style={styles.text}>Favorites</Text>
+      </View>
+    );
+  }
+  return (
+    <View style={styles.container}>
+      <FontAwesome name="star" size={24} color="yellow" style={styles.icon} />
+      <Text style={styles.text}>Favorites</Text>
+      {/* Render favorite gyms */}
+      {favoriteGyms.map(gym => (
+        <CapacityCard
+          key={gym.id}
+          title={gym.title}
+          capacity={gym.capacity}
+          lastUpdated={gym.lastUpdated}
+          isFavorite={gym.isFavorite}
+          onToggleFavorite={() => onToggleFavorite(gym.id)} // Pass the ID of the gym to toggle favorite status
+        />
+      ))}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -22,6 +46,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 40, // Adjust as needed for the text size
     marginLeft: 10, // Adjust as needed for spacing
+  },
+  text2: {
+    color: 'white',
   },
   icon: {
     marginRight: 5, // Adjust as needed for spacing

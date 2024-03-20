@@ -40,6 +40,21 @@ const handlePress = (navigation, item) => {
 };
 
 export default function App() {
+  const [favoriteGyms, setFavoriteGyms] = useState([]);
+
+  // Add or remove gym from favorites
+  const toggleFavorite = (gymId) => {
+    if (favoriteGyms.some(favGym => favGym.id === gymId)) {
+      // Remove gym from favorites
+      setFavoriteGyms(prev => prev.filter(favGym => favGym.id !== gymId));
+    } else {
+      // Add gym to favorites
+      const gymToAdd = topPlacesData.find(gym => gym.id === gymId);
+      if (gymToAdd) {
+        setFavoriteGyms(prev => [...prev, gymToAdd]);
+      }
+    }
+  };
   // Dummy data for the carousel
   const topPlacesData = [
     { id: '1', title: 'RPAC',image: require('./images/image1.jpg') },
@@ -50,11 +65,12 @@ export default function App() {
     // Add more data as needed
   ];
 
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" options={{ headerShown: false }}>
-          {props => <HomeScreen {...props} topPlacesData={topPlacesData} />}
+          {props => <HomeScreen {...props} topPlacesData={topPlacesData} toggleFavorite={toggleFavorite} />}
         </Stack.Screen>
         <Stack.Screen options={{ headerShown: false }} name="RPAC" component={RpacScreen} />
         <Stack.Screen options={{ headerShown: false }} name="NRC" component={NrcScreen} />
@@ -69,11 +85,11 @@ export default function App() {
   );
 }
 
-const HomeScreen = ({ navigation, topPlacesData }) => (
+const HomeScreen = ({ navigation, topPlacesData, favoriteGyms}) => (
   <View style={styles.container}>
     <Header />
       <TopPlacesCarousel list={topPlacesData} handlePress={(item) => handlePress(navigation, item)} />
-    <Favorites />
+    <Favorites favoriteGyms={favoriteGyms} />
   </View>
 );
 

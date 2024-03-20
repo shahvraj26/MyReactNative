@@ -12,9 +12,11 @@ import { colors, shadow, sizes, spacing } from '../constants/theme';
 import Favorites from './favorite';
 
 const CARD_WIDTH = sizes.width - 80;
-const CARD_HEIGHT = 200;
-const CARD_WIDTH_SPACING = CARD_WIDTH + spacing.m;
+const CARD_HEIGHT = 150;
+const itemSpacing = spacing.m/100;
+const CARD_WIDTH_SPACING = CARD_WIDTH + itemSpacing * 2;
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+const sidePadding = (sizes.width - CARD_WIDTH) / 4;
 
 const TopPlacesCarousel = ({ list, handlePress }) => {
   const [scrollX, setScrollX] = useState(new Animated.Value(0));
@@ -32,6 +34,9 @@ const TopPlacesCarousel = ({ list, handlePress }) => {
         decelerationRate="fast"
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id}
+        contentContainerStyle={{
+          paddingHorizontal: sidePadding,
+        }}
         renderItem={({ item, index }) => {
           const inputRange = [(index - 1) * CARD_WIDTH_SPACING, index * CARD_WIDTH_SPACING, (index + 1) * CARD_WIDTH_SPACING];
           const scale = scrollX.interpolate({
@@ -39,12 +44,15 @@ const TopPlacesCarousel = ({ list, handlePress }) => {
             outputRange: [0.8, 1, 0.8],
             extrapolate: 'clamp',
           });
+          // Calculate margins for the first and last items
+          const isFirstItem = index === 0;
+          const isLastItem = index === list.length - 1;
 
           return (
             <TouchableOpacity
               style={{
-                marginLeft: 14,
-                marginRight: index === list.length - 1 ? spacing.l : 0,
+                marginLeft: isFirstItem ? sidePadding + itemSpacing : itemSpacing, // Adjust the marginLeft for the first item
+                marginRight: isLastItem ? sidePadding + itemSpacing : itemSpacing, // Adjust the marginRight for the last item
                 width: CARD_WIDTH, // Set the width to CARD_WIDTH
                 height: CARD_HEIGHT, // Set the height to CARD_HEIGHT
               }} onPress={() => handlePress(item)}>

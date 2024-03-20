@@ -1,11 +1,9 @@
 from flask import Flask, jsonify
-from flask_cors import CORS
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import time
 
 app = Flask(__name__)
-CORS(app) 
 
 @app.route('/', methods=['GET'])
 def get_facility_data():

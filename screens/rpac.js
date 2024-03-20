@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
   capacityContainer: {
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 10,
   },
 });
 

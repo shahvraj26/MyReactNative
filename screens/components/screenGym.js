@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     width: sizes.width - 80,
     height: 200, // Make the logo square by setting height equal to width
     resizeMode: 'cover', // Ensure the image covers the specified dimensions
-    marginBottom: 20,
+    marginBottom: 15,
     borderRadius: 20, // Make the image rounded
   },
   title: {

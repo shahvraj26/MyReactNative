@@ -41,9 +41,6 @@ const handlePress = (navigation, item) => {
 };
 
 export default function App() {
-  useEffect(() => {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-  }, []);
   // Dummy data for the carousel
   const topPlacesData = [
     { id: '1', title: 'RPAC',image: require('./images/image1.jpg') },
@@ -54,11 +51,12 @@ export default function App() {
     // Add more data as needed
   ];
 
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" options={{ headerShown: false }}>
-          {props => <HomeScreen {...props} topPlacesData={topPlacesData} />}
+          {props => <HomeScreen {...props} topPlacesData={topPlacesData} toggleFavorite={toggleFavorite} />}
         </Stack.Screen>
         <Stack.Screen options={{ headerShown: false }} name="RPAC" component={RpacScreen} />
         <Stack.Screen options={{ headerShown: false }} name="NRC" component={NrcScreen} />
@@ -73,11 +71,11 @@ export default function App() {
   );
 }
 
-const HomeScreen = ({ navigation, topPlacesData }) => (
+const HomeScreen = ({ navigation, topPlacesData, favoriteGyms}) => (
   <View style={styles.container}>
     <Header />
       <TopPlacesCarousel list={topPlacesData} handlePress={(item) => handlePress(navigation, item)} />
-    <Favorites />
+    <Favorites favoriteGyms={favoriteGyms} />
   </View>
 );
 

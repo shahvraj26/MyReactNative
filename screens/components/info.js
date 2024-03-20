@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   map: {
     borderRadius: 20,
     backgroundColor: 'transparent',
-    height: 250
+    height: 225
     ,
     flex: 0,
   },

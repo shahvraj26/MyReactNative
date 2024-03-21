@@ -38,6 +38,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#D30000',
     height: 85, // Ensure this is enough height to show the entire icon
+    borderTopLeftRadius: 5, // Add a border radius to round out the top left corner
+    borderTopRightRadius: 5,
   },
   navItem: {
     padding: 10,

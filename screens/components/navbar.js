@@ -21,7 +21,7 @@ const NavBar = () => {
         <Image source={require('../../images/home_button.png')} style={styles.home} />
       </TouchableOpacity>
       <TouchableOpacity onPress={handleFavoritePress} style={styles.navItem}>
-        <FontAwesome name="star" size={45} color="white" style={styles.star} />
+        <FontAwesome name="star" size={40} color="white" style={styles.star} />
       </TouchableOpacity>
     </View>
   );
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 0, // Changed to 0 to ensure it's not cutting off content
+    bottom: -5, // Changed to 0 to ensure it's not cutting off content
     flexDirection: 'row',
     justifyContent: 'space-around', // Changed to space-around for even spacing
     alignItems: 'center',
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
   },
   home: {
     marginBottom: 25,
-    width: 45,
-    height: 45,
+    width: 40,
+    height: 40,
   },
   star: {
     marginBottom: 25,

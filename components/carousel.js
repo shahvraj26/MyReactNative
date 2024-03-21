@@ -33,6 +33,9 @@ const TopPlacesCarousel = ({ list, handlePress }) => {
         decelerationRate="fast"
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.id}
+        contentContainerStyle={{
+          paddingBottom: 625,
+        }}
         renderItem={({ item, index }) => {
           const inputRange = [
             (index - 1) * CARD_HEIGHT_SPACING, 

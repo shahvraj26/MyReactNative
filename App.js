@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import TopPlacesCarousel from './components/carousel'; // Import the TopPlacesCarousel component
 import Header from './components/header';
-import Favorites from './components/favorite';
+import Favorites from './screens/components/favorite';
 import RpacScreen from './screens/rpac'; // Import the screen component for RPAC
 import NrcScreen from './screens/nrc'; // Import the screen component for NRC
 import JosScreen from './screens/jos'; // Import the screen component for NRC
@@ -42,7 +42,7 @@ const handlePress = (navigation, item) => {
 
 export default function App() {
 
-  const [favoriteGyms, setFavoriteGyms] = useState([]);
+  /*const [favoriteGyms, setFavoriteGyms] = useState([]);
 
   // Add or remove gym from favorites
   const toggleFavorite = (gymId) => {
@@ -56,7 +56,7 @@ export default function App() {
         setFavoriteGyms(prev => [...prev, gymToAdd]);
       }te
     }
-  };
+  };*/
   useEffect(() => {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
   }, []);
@@ -76,7 +76,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" options={{ headerShown: false }}>
-          {props => <HomeScreen {...props} topPlacesData={topPlacesData} toggleFavorite={toggleFavorite} />}
+          {props => <HomeScreen {...props} topPlacesData={topPlacesData} /*toggleFavorite={toggleFavorite}*/ />}
         </Stack.Screen>
         <Stack.Screen options={{ headerShown: false }} name="RPAC" component={RpacScreen} />
         <Stack.Screen options={{ headerShown: false }} name="NRC" component={NrcScreen} />
@@ -95,7 +95,7 @@ const HomeScreen = ({ navigation, topPlacesData, favoriteGyms}) => (
   <View style={styles.container}>
     <Header />
       <TopPlacesCarousel list={topPlacesData} handlePress={(item) => handlePress(navigation, item)} />
-    <Favorites favoriteGyms={favoriteGyms} />
+    {/*<Favorites favoriteGyms={favoriteGyms} />*/}
   </View>
 );
 

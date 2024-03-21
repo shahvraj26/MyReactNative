@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; // Assuming you're using Expo for icons
-import CapacityCard from '../screens/components/capacitycard'; // Import the CapacityCard component
+import CapacityCard from './capacitycard'; // Import the CapacityCard component
 
 const Favorites = ({ favoriteGyms, onToggleFavorite }) => {
   // If favoriteGyms is not empty, render the favorite gyms

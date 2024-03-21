@@ -9,7 +9,7 @@ import {
   Animated,
 } from 'react-native';
 import { colors, shadow, sizes, spacing } from '../constants/theme';
-import Favorites from './favorite';
+import Favorites from '../screens/components/favorite';
 
 const CARD_WIDTH = sizes.width - 80;
 const CARD_HEIGHT = 150;

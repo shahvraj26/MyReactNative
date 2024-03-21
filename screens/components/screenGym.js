@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Text, Image, SafeAreaView } from 'react-native';
 import { colors, sizes } from '../../constants/theme';
 import ScreenHeader from './screenHeader'; // Assuming you have a Header component
+import { useNavigation } from '@react-navigation/native';
 
 const ScreenGym = ({title, image, onInfoPress}) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <ScreenHeader onInfoPress={onInfoPress}/>

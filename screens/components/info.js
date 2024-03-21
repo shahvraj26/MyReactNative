@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPhone, faMapMarkerAlt, faEnvelope, faArrowLeft, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { WebView } from 'react-native-webview'; 
-import NavBar from './navbar';
+//import NavBar from './navbar';
 
 const InfoScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -14,10 +14,14 @@ const InfoScreen = ({ route }) => {
     navigation.goBack();
   };
 
-  const handleHomePress = () => {
+  /*const handleHomePress = () => {
     navigation.navigate('Home');
   };
 
+  const handleFavoritePress = () => {
+    navigation.navigate('Favorites');
+  };
+  */
 
   return (
     <SafeAreaView style={styles.container}>
@@ -54,7 +58,7 @@ const InfoScreen = ({ route }) => {
           <Text style={styles.infoText}>recsports@osu.edu</Text>
         </View>
       </View>
-      <NavBar onHomePress={handleHomePress} />
+      {/*<NavBar onHomePress={handleHomePress} onFavPress={handleFavoritePress} />*/}
       <WebView
         source={{ html: `<iframe src="${url}" width="1000" height="700" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>` }}
         style={styles.map}

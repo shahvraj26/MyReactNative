@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
+
 
 LocaleConfig.locales['en'] = {
   monthNames: [
@@ -38,6 +39,7 @@ const CalenderScreen = ({ route }) => {
     navigation.goBack();
   };
 
+
   const handleDayPress = (day) => {
     setSelectedDate(day.dateString);
     // Add logic to fetch events for the selected date and display them
@@ -46,6 +48,7 @@ const CalenderScreen = ({ route }) => {
   };
 
   return (
+    <SafeAreaView style={styles.container}>
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
@@ -103,6 +106,7 @@ const CalenderScreen = ({ route }) => {
         )}
       </View>
     </View>
+    </SafeAreaView>
   );
 };
 

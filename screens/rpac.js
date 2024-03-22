@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import { View, StyleSheet, Animated, SafeAreaView } from 'react-native';
 import ScreenGym from './components/screenGym';
 import image1 from '../images/image1.jpg'; // Import the image
 import CapacityCard from './components/capacitycard';
@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as FileSystem from 'expo-file-system';
 import axios from 'axios';
 import facilityData from './rpac_data.json'; 
+import NavBar from './components/navbar';
 
 const title = "Recreation & Physical Center";
 
@@ -25,6 +26,14 @@ const RpacScreen = ({ navigation }) => {
     navigation.navigate('InfoScreen', rpacInfo);
   };
 
+  const handleHomePress = () => {
+    navigation.navigate('Home');
+  };
+
+  const handleFavoritePress = () => {
+    navigation.navigate('Favorites');
+  };
+
   const opacity = scrollY.interpolate({
     inputRange: [50, 100],
     outputRange: [0.9, 1],
@@ -32,6 +41,7 @@ const RpacScreen = ({ navigation }) => {
   });
 
   return (
+    <SafeAreaView style={styles.container}>
     <View style={styles.container}>
       <ScreenGym title={title} image={image1} onInfoPress={handleInfoPress} />
       <Animated.View style={[styles.cardsContainer, { opacity }]}>
@@ -57,6 +67,7 @@ const RpacScreen = ({ navigation }) => {
         </Animated.ScrollView>
       </Animated.View>
     </View>
+    </SafeAreaView>
   );
 };
 

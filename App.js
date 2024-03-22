@@ -12,9 +12,12 @@ import JosScreen from './screens/jos'; // Import the screen component for NRC
 import JonScreen from './screens/jon'; // Import the screen component for NRC
 import ArcScreen from './screens/arc'; // Import the screen component for NRC
 import InfoScreen from './screens/components/info'; 
-import CalendarScreen from './screens/components/CalendarScreen'; 
+import CalendarScreen from './screens/components/CalendarScreen';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import NavBar from './screens/components/navbar'; 
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const handlePress = (navigation, item) => {
   // Navigate to different routes based on the item's id
@@ -71,9 +74,8 @@ export default function App() {
     // Add more data as needed
   ];
 
-
-  return (
-    <NavigationContainer>
+  const HomeStackNavigator = () => {
+    return (
       <Stack.Navigator>
         <Stack.Screen name="Home" options={{ headerShown: false }}>
           {props => <HomeScreen {...props} topPlacesData={topPlacesData} /*toggleFavorite={toggleFavorite}*/ />}
@@ -85,9 +87,31 @@ export default function App() {
         <Stack.Screen options={{ headerShown: false }} name="JOS" component={JosScreen} />
         <Stack.Screen options={{ headerShown: false }} name="InfoScreen" component={InfoScreen} />
         <Stack.Screen options={{ headerShown: false }} name="CalendarScreen" component={CalendarScreen} />
+        <Stack.Screen options={{ headerShown: false }} name="Favorites" component={Favorites} />
         {/* Add more screens as needed */}
       </Stack.Navigator>
+    );
+  };
+
+  const BottomTabNavigator = () => {
+    return (
+      <Tab.Navigator
+      screenOptions={{headerShown: false}} 
+      tabBar={props => <NavBar {...props} />}>
+        <Tab.Screen name="Home" component={HomeStackNavigator} />
+        <Tab.Screen name="Favorites" component={Favorites} />
+        {/* Add other tabs as needed */}
+      </Tab.Navigator>
+    );
+  };
+
+
+  return (
+    <NavigationContainer>
+      <BottomTabNavigator />
     </NavigationContainer>
+    
+
   );
 }
 

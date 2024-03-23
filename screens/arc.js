@@ -3,8 +3,7 @@ import { View, StyleSheet, Animated, SafeAreaView } from 'react-native';
 import ScreenGym from './components/screenGym';
 import image1 from '../images/image1.jpg'; // Import the image
 import CapacityCard from './components/capacitycard';
-import facilityData from './arc_data.json'; 
-import NavBar from './components/navbar';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 
 const title = "Adventure Recreation Center";
 const arcInfo = {
@@ -16,7 +15,47 @@ const arcInfo = {
 
 const ArcScreen = ({ navigation }) => {
   const scrollY = useRef(new Animated.Value(0)).current;
-  const [capacityData, setCapacityData] = useState(facilityData);
+  const [capacityData, setCapacityData] = useState([]);
+  
+  useEffect(() => {
+    // Load favorite status from AsyncStorage when component mounts
+    const loadFavoriteStatus = async () => {
+      try {
+        const savedData = await AsyncStorage.getItem('favoriteCapacityData');
+        if (savedData !== null) {
+          setCapacityData(JSON.parse(savedData));
+        } else {
+          // If no saved data found, use the default facilityData
+          setCapacityData(facilityData);
+        }
+      } catch (error) {
+        console.error('Error loading favorite data:', error);
+      }
+    };
+
+    loadFavoriteStatus();
+  }, []); // Empty dependency array ensures this effect only runs once on mount
+
+  const toggleFavorite = async (id) => {
+    // Logic to toggle favorite status
+    const updatedData = capacityData.map((data) => {
+      if (data.id === id) {
+        return {
+          ...data,
+          isFavorite: !data.isFavorite,
+        };
+      }
+      return data;
+    });
+    setCapacityData(updatedData);
+
+    // Save favorite status to AsyncStorage
+    try {
+      await AsyncStorage.setItem('favoriteCapacityData', JSON.stringify(updatedData));
+    } catch (error) {
+      console.error('Error saving favorite data:', error);
+    }
+  };
 
   const handleInfoPress = () => {
     navigation.navigate('InfoScreen', arcInfo);
@@ -30,31 +69,33 @@ const ArcScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-    <View style={styles.container}>
-      <ScreenGym title={title} image={image1} onInfoPress={handleInfoPress} />
-      <Animated.View style={[styles.cardsContainer, { opacity }]}>
-        <Animated.ScrollView
-          contentContainerStyle={styles.scrollContainer}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-            { useNativeDriver: true }
-          )}
-          scrollEventThrottle={16}
-        >
-          <View style={styles.capacityContainer}>
-            {/* Map over the capacity data and render CapacityCard components */}
-            {capacityData.map((data, index) => (
-              <CapacityCard
-                key={index}
-                title={data.title}
-                capacity={data.capacity}
-                lastUpdated={data.lastupdated}
-              />
-            ))}
-          </View>
-        </Animated.ScrollView>
-      </Animated.View>
-    </View>
+      <View style={styles.container}>
+        <ScreenGym title={title} image={image1} onInfoPress={handleInfoPress} />
+        <Animated.View style={[styles.cardsContainer, { opacity }]}>
+          <Animated.ScrollView
+            contentContainerStyle={styles.scrollContainer}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+              { useNativeDriver: true }
+            )}
+            scrollEventThrottle={16}
+          >
+            <View style={styles.capacityContainer}>
+              {/* Map over the capacity data and render CapacityCard components */}
+              {capacityData.map((data, index) => (
+                <CapacityCard
+                  key={index}
+                  title={data.title}
+                  capacity={data.capacity}
+                  lastUpdated={data.lastupdated}
+                  isFavorite={data.isFavorite} // Pass isFavorite prop
+                  toggleFavorite={() => toggleFavorite(data.id)} 
+                />
+              ))}
+            </View>
+          </Animated.ScrollView>
+        </Animated.View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -66,7 +107,7 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     flex: 1,
-    paddingTop: 80, // Adjust the paddingTop to create space
+    paddingTop: 125, // Adjust the paddingTop to create space
   },
   scrollContainer: {
     alignItems: 'center',

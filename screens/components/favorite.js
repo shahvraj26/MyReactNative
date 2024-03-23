@@ -1,62 +1,82 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; // Assuming you're using Expo for icons
 import CapacityCard from './capacitycard'; // Import the CapacityCard component
-import NavBar from './navbar';
 
 const Favorites = ({ favoriteGyms, onToggleFavorite }) => {
-  // If favoriteGyms is not empty, render the favorite gyms
-  if (!favoriteGyms || favoriteGyms.length === 0) {
-    // Render a message or placeholder when the array is empty
-    return (
-      <View style={styles.container}>
-        <FontAwesome name="star" size={24} color="yellow" style={styles.icon} />
-        <Text style={styles.text}>Favorites</Text>
-      </View>
-    );
-  }
+  // Check if favoriteGyms is defined before filtering
+  const favoriteCapacityCards = favoriteGyms && favoriteGyms.filter(gym => gym.isFavorite);
+
   return (
     <View style={styles.container}>
-      <FontAwesome name="star" size={24} color="yellow" style={styles.icon} />
-      <Text style={styles.text}>Favorites</Text>
-      {/* Render favorite gyms */}
-      {favoriteGyms.map(gym => (
-        <CapacityCard
-          key={gym.id}
-          title={gym.title}
-          capacity={gym.capacity}
-          lastUpdated={gym.lastUpdated}
-          isFavorite={gym.isFavorite}
-          onToggleFavorite={() => onToggleFavorite(gym.id)} // Pass the ID of the gym to toggle favorite status
-        />
-      ))}
+      <View style={styles.centerContent}>
+        <View style={styles.logoContainer}>
+          <Image source={require('../../images/logo.png')} style={styles.logo} />
+        </View>
+        <Text style={styles.text}>Favorites</Text>
+        <View style={styles.lineContainer}>
+          <View style={styles.line}></View>
+        </View>
+        {/* Render favorite capacity cards if favoriteGyms is defined */}
+        {favoriteCapacityCards && favoriteCapacityCards.length > 0 ? (
+          favoriteCapacityCards.map(gym => (
+            <CapacityCard
+              key={gym.id}
+              title={gym.title}
+              capacity={gym.capacity}
+              lastUpdated={gym.lastUpdated}
+              isFavorite={true} // Assuming all favorites are marked as favorites
+              onToggleFavorite={() => onToggleFavorite(gym.id)}
+            />
+          ))
+        ) : (
+          <Text style={styles.noFavoritesText}>No favorite gyms</Text>
+        )}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flex: 1,
+    backgroundColor: 'black',
+  },
+  centerContent: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute',
-    bottom: 310, // Adjust as needed to position the Favorites component
-    left: 10, // Adjust as needed to position the Favorites component
+    marginBottom: 490, // Adjusted marginTop to move content higher on the screen
+  },
+  logoContainer: {
+    marginBottom: 20,
   },
   text: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 40, // Adjust as needed for the text size
-    marginLeft: 10, // Adjust as needed for spacing
-  },
-  text2: {
-    color: 'white',
-  },
-  icon: {
-    marginRight: 5, // Adjust as needed for spacing
+    fontSize: 40,
+    marginTop: 10,
   },
   lineContainer: {
+    width: 50,
+    height: 1,
+    backgroundColor: 'white',
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  line: {
     flex: 1,
-    marginLeft: 10, // Adjust as needed for spacing
+    borderBottomWidth: 1,
+    borderBottomColor: 'white',
+  },
+  noFavoritesText: {
+    color: 'white',
+    fontSize: 16,
+  },
+  logo: {
+    width: 50,
+    height: 50,
+    resizeMode: 'contain',
   },
 });
 

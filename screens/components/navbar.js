@@ -1,27 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-
-
 const NavBar = () => {
   const navigation = useNavigation();
+  const [isFavoritePressed, setIsFavoritePressed] = useState(false); // State for favorite button pressed
+  const [isHomePressed, setIsHomePressed] = useState(false); // State for Home button pressed
+
+  const isHome = navigation.navigate('Home');
 
   const handleHomePress = () => {
-    navigation.navigate('Home');
+    setIsHomePressed(true); // Set Home button pressed state
+    setIsFavoritePressed(false); // Reset favorite button pressed state
+    navigation.navigate('Home')
   };
 
   const handleFavoritePress = () => {
     navigation.navigate('Favorites');
+    setIsFavoritePressed(true); // Set favorite button pressed state
+    setIsHomePressed(false);
   };
+
+
   return (
     <View style={styles.navBar}>
       <TouchableOpacity onPress={handleHomePress} style={styles.navItem}>
-        <Image source={require('../../images/home_button.png')} style={styles.home} />
+        <FontAwesome name="home" size={40} color='white' style={styles.home}/>      
       </TouchableOpacity>
       <TouchableOpacity onPress={handleFavoritePress} style={styles.navItem}>
-        <FontAwesome name="star" size={40} color="white" style={styles.star} />
+        <FontAwesome name="star" size={40} color={isFavoritePressed ? '#FFFF00' : 'white'} style={styles.star} />
       </TouchableOpacity>
     </View>
   );

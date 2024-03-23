@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     flex: 1,
-    paddingTop: 80, // Adjust the paddingTop to create space
+    paddingTop: 125, // Adjust the paddingTop to create space
   },
   scrollContainer: {
     alignItems: 'center',

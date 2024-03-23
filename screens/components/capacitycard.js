@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons'; // Import AntDesign icon library
@@ -14,9 +14,25 @@ const CapacityCard = ({ title, capacity, lastUpdated, toggleFavorite }) => {
 
   const handleFavoritePress = () => {
     setIsFavorite(!isFavorite);
-    // Here you can add code to handle adding/removing the card from favorites
+    // Pass the toggleFavorite function to update the list of favorite gyms
     toggleFavorite({ id: title, title, capacity, lastUpdated });
   };
+
+  // Parse the capacity string to extract the current capacity and maximum capacity
+  const [currentCapacity, maxCapacity] = capacity.split(' out of ').map(Number);
+  
+  // Calculate the percentage filled
+  const percentageFilled = (currentCapacity / maxCapacity) * 100;
+
+  // Determine the color of the progress bar based on the percentage filled
+  let progressBarColor;
+  if (percentageFilled >= 75) {
+    progressBarColor = 'red';
+  } else if (percentageFilled >= 50) {
+    progressBarColor = 'orange';
+  } else {
+    progressBarColor = 'green';
+  }
 
   return (
     <TouchableOpacity onPress={handleCardPress}>
@@ -32,8 +48,8 @@ const CapacityCard = ({ title, capacity, lastUpdated, toggleFavorite }) => {
             />
           </TouchableOpacity>
         </View>
-        <View style={styles.progressBar}>
-          <View style={[styles.progress, { width: `${capacity}%` }]}></View>
+        <View style={[styles.progressBar, { backgroundColor: '#555' }]}>
+          <View style={[styles.progress, { width: `${percentageFilled}%`, backgroundColor: progressBarColor }]}></View>
         </View>
         <Text style={styles.capacityText}>Capacity: {capacity}</Text>
         <Text style={styles.lastUpdatedText}>{lastUpdated}</Text>
@@ -65,13 +81,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   progressBar: {
-    backgroundColor: '#555',
     height: 20,
     borderRadius: 20,
     marginBottom: 10,
   },
   progress: {
-    backgroundColor: 'green',
     height: 20,
     borderRadius: 20,
   },

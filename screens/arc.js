@@ -4,6 +4,7 @@ import ScreenGym from './components/screenGym';
 import image1 from '../images/image1.jpg'; // Import the image
 import CapacityCard from './components/capacitycard';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
+import facilityData from './arc_data.json';
 
 const title = "Adventure Recreation Center";
 const arcInfo = {

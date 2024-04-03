@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons'; // Import AntDesign icon library
 
-const CapacityCard = ({ title, capacity, lastUpdated, toggleFavorite }) => {
+const CapacityCard = ({ title, capacity, lastUpdated }) => {
   const navigation = useNavigation();
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -15,7 +15,6 @@ const CapacityCard = ({ title, capacity, lastUpdated, toggleFavorite }) => {
   const handleFavoritePress = () => {
     setIsFavorite(!isFavorite);
     // Pass the toggleFavorite function to update the list of favorite gyms
-    toggleFavorite({ id: title, title, capacity, lastUpdated });
   };
 
   // Parse the capacity string to extract the current capacity and maximum capacity

@@ -8,18 +8,14 @@ const NavBar = () => {
   const [isFavoritePressed, setIsFavoritePressed] = useState(false); // State for favorite button pressed
   const [isHomePressed, setIsHomePressed] = useState(false); // State for Home button pressed
 
-  const isHome = navigation.navigate('Home');
 
   const handleHomePress = () => {
-    setIsHomePressed(true); // Set Home button pressed state
-    setIsFavoritePressed(false); // Reset favorite button pressed state
+    setIsHomePressed(true); // Always set home pressed to true when navigating to home
     navigation.navigate('Home')
   };
 
   const handleFavoritePress = () => {
     navigation.navigate('Favorites');
-    setIsFavoritePressed(true); // Set favorite button pressed state
-    setIsHomePressed(false);
   };
 
 

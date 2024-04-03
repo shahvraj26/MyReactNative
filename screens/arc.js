@@ -17,46 +17,6 @@ const ArcScreen = ({ navigation }) => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const [capacityData, setCapacityData] = useState([]);
   
-  useEffect(() => {
-    // Load favorite status from AsyncStorage when component mounts
-    const loadFavoriteStatus = async () => {
-      try {
-        const savedData = await AsyncStorage.getItem('favoriteCapacityData');
-        if (savedData !== null) {
-          setCapacityData(JSON.parse(savedData));
-        } else {
-          // If no saved data found, use the default facilityData
-          setCapacityData(facilityData);
-        }
-      } catch (error) {
-        console.error('Error loading favorite data:', error);
-      }
-    };
-
-    loadFavoriteStatus();
-  }, []); // Empty dependency array ensures this effect only runs once on mount
-
-  const toggleFavorite = async (id) => {
-    // Logic to toggle favorite status
-    const updatedData = capacityData.map((data) => {
-      if (data.id === id) {
-        return {
-          ...data,
-          isFavorite: !data.isFavorite,
-        };
-      }
-      return data;
-    });
-    setCapacityData(updatedData);
-
-    // Save favorite status to AsyncStorage
-    try {
-      await AsyncStorage.setItem('favoriteCapacityData', JSON.stringify(updatedData));
-    } catch (error) {
-      console.error('Error saving favorite data:', error);
-    }
-  };
-
   const handleInfoPress = () => {
     navigation.navigate('InfoScreen', arcInfo);
   };
@@ -89,7 +49,6 @@ const ArcScreen = ({ navigation }) => {
                   capacity={data.capacity}
                   lastUpdated={data.lastupdated}
                   isFavorite={data.isFavorite} // Pass isFavorite prop
-                  toggleFavorite={() => toggleFavorite(data.id)} 
                 />
               ))}
             </View>

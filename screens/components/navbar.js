@@ -8,7 +8,6 @@ const NavBar = () => {
 
 
   const handleHomePress = () => {
-    setIsHomePressed(true); // Always set home pressed to true when navigating to home
     navigation.navigate('Home')
   };
 

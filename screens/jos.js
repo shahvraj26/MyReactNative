@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { View, StyleSheet, Animated, SafeAreaView } from 'react-native';
 import ScreenGym from './components/screenGym';
-import image1 from '../images/image1.jpg'; // Import the image
+import image1 from '../images/image5.jpg'; // Import the image
 import CapacityCard from './components/capacitycard';
 import facilityData from './jos_data.json'; 
 import NavBar from './components/navbar';

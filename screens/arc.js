@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { View, StyleSheet, Animated, SafeAreaView } from 'react-native';
 import ScreenGym from './components/screenGym';
-import image1 from '../images/image1.jpg'; // Import the image
+import image1 from '../images/image4.jpg'; // Import the image
 import CapacityCard from './components/capacitycard';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 import facilityData from './arc_data.json';
@@ -16,7 +16,7 @@ const arcInfo = {
 
 const ArcScreen = ({ navigation }) => {
   const scrollY = useRef(new Animated.Value(0)).current;
-  const [capacityData, setCapacityData] = useState([]);
+  const [capacityData, setCapacityData] = useState(facilityData);
   
   const handleInfoPress = () => {
     navigation.navigate('InfoScreen', arcInfo);
@@ -49,7 +49,6 @@ const ArcScreen = ({ navigation }) => {
                   title={data.title}
                   capacity={data.capacity}
                   lastUpdated={data.lastupdated}
-                  isFavorite={data.isFavorite} // Pass isFavorite prop
                 />
               ))}
             </View>

@@ -1,15 +1,12 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Animated, SafeAreaView } from 'react-native';
 import ScreenGym from './components/screenGym';
 import image1 from '../images/image1.jpg'; // Import the image
 import CapacityCard from './components/capacitycard';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as FileSystem from 'expo-file-system';
-import axios from 'axios';
-import facilityData from './rpac_data.json'; 
-import NavBar from './components/navbar';
+import facilityData from './rpac_data.json';
 
-const title = "Recreation & Physical Center";
+const title = "Recreation & Physical Activity Center";
+const gymName = "RPAC";
 
 const rpacInfo = {
     title: "RPAC",
@@ -18,20 +15,26 @@ const rpacInfo = {
     url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3056.3951860510724!2d-83.0207417249247!3d39.999619471509746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88388e944340e607%3A0x525aa0ea4552bf33!2sRecreation%20and%20Physical%20Activity%20Center!5e0!3m2!1sen!2sus!4v1710551828093!5m2!1sen!2sus",
 };
 
-const RpacScreen = ({ navigation }) => {
+const RpacScreen = ({ navigation, favoriteGyms, toggleFavorite }) => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const [capacityData, setCapacityData] = useState(facilityData);
 
+  const isFavorite = (data) => {
+    return favoriteGyms.some(
+      (gym) =>
+        gym.title === data.title &&
+        gym.capacity === data.capacity &&
+        gym.lastupdated === data.lastupdated &&
+        gym.gymName === gymName
+    );
+  };
+
+  const handleToggleFavorite = (data) => {
+    toggleFavorite(data, gymName);
+  };
+
   const handleInfoPress = () => {
     navigation.navigate('InfoScreen', rpacInfo);
-  };
-
-  const handleHomePress = () => {
-    navigation.navigate('Home');
-  };
-
-  const handleFavoritePress = () => {
-    navigation.navigate('Favorites');
   };
 
   const opacity = scrollY.interpolate({
@@ -42,31 +45,32 @@ const RpacScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-    <View style={styles.container}>
-      <ScreenGym title={title} image={image1} onInfoPress={handleInfoPress} />
-      <Animated.View style={[styles.cardsContainer, { opacity }]}>
-        <Animated.ScrollView
-          contentContainerStyle={styles.scrollContainer}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-            { useNativeDriver: true }
-          )}
-          scrollEventThrottle={16}
-        >
-          <View style={styles.capacityContainer}>
-            {/* Map over the capacity data and render CapacityCard components */}
-            {capacityData.map((data, index) => (
-              <CapacityCard
-                key={index}
-                title={data.title}
-                capacity={data.capacity}
-                lastUpdated={data.lastupdated}
-              />
-            ))}
-          </View>
-        </Animated.ScrollView>
-      </Animated.View>
-    </View>
+      <View style={styles.container}>
+        <ScreenGym title={title} image={image1} onInfoPress={handleInfoPress} />
+        <Animated.View style={[styles.cardsContainer, { opacity }]}>
+          <Animated.ScrollView
+            contentContainerStyle={styles.scrollContainer}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+              { useNativeDriver: true }
+            )}
+            scrollEventThrottle={16}
+          >
+            <View style={styles.capacityContainer}>
+              {capacityData.map((data, index) => (
+                <CapacityCard
+                  key={index}
+                  title={data.title}
+                  capacity={data.capacity}
+                  lastUpdated={data.lastupdated}
+                  isFavorite={isFavorite(data)}
+                  toggleFavorite={() => handleToggleFavorite(data)}
+                />
+              ))}
+            </View>
+          </Animated.ScrollView>
+        </Animated.View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -78,7 +82,7 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     flex: 1,
-    paddingTop: 125, // Adjust the paddingTop to create space
+    paddingTop: 125,
   },
   scrollContainer: {
     alignItems: 'center',

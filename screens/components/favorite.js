@@ -1,15 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons'; // Assuming you're using Expo for icons
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import CapacityCard from './capacitycard'; // Import the CapacityCard component
 
 const Favorites = ({ favoriteGyms, onToggleFavorite }) => {
-  // Check if favoriteGyms is defined before filtering
-  const favoriteCapacityCards = favoriteGyms && favoriteGyms.filter(gym => gym.isFavorite);
+  const handleToggleFavorite = (gym) => {
+    onToggleFavorite(gym, gym.gymName); // Ensure we pass both gym and gymName
+  };
 
   return (
     <View style={styles.container}>
-      <View style={styles.centerContent}>
+      <View style={styles.headerContainer}>
         <View style={styles.logoContainer}>
           <Image source={require('../../images/logo.png')} style={styles.logo} />
         </View>
@@ -17,22 +17,29 @@ const Favorites = ({ favoriteGyms, onToggleFavorite }) => {
         <View style={styles.lineContainer}>
           <View style={styles.line}></View>
         </View>
-        {/* Render favorite capacity cards if favoriteGyms is defined */}
-        {favoriteCapacityCards && favoriteCapacityCards.length > 0 ? (
-          favoriteCapacityCards.map(gym => (
-            <CapacityCard
-              key={gym.id}
-              title={gym.title}
-              capacity={gym.capacity}
-              lastUpdated={gym.lastUpdated}
-              isFavorite={true} // Assuming all favorites are marked as favorites
-              onToggleFavorite={() => onToggleFavorite(gym.id)}
-            />
+      </View>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {favoriteGyms && favoriteGyms.length > 0 ? (
+          favoriteGyms.map((gym, index) => (
+            gym && gym.title && gym.capacity && gym.lastupdated && gym.gymName ? (
+              <CapacityCard
+                key={index}
+                title={`${gym.gymName} / ${gym.title}`} // Combine gym name and area name
+                capacity={gym.capacity}
+                lastUpdated={gym.lastupdated}
+                isFavorite={true}
+                toggleFavorite={() => handleToggleFavorite(gym)}
+              />
+            ) : (
+              <Text key={index} style={styles.errorText}>
+                Invalid gym data
+              </Text>
+            )
           ))
         ) : (
           <Text style={styles.noFavoritesText}>No favorite gyms</Text>
         )}
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -42,41 +49,49 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'black',
   },
-  centerContent: {
-    flex: 1,
-    justifyContent: 'center',
+  headerContainer: {
+    paddingTop: 72, // Adjust this value to move the header down
     alignItems: 'center',
-    marginBottom: 490, // Adjusted marginTop to move content higher on the screen
+  },
+  scrollContainer: {
+    paddingBottom: 85,
+    alignItems: 'center',
+    flexGrow: 1, // Ensures ScrollView content expands as needed
   },
   logoContainer: {
-    marginBottom: 20,
+    marginTop: 20,
+    alignItems: 'center',
   },
   text: {
     color: 'white',
     fontWeight: 'bold',
     fontSize: 40,
-    marginTop: 10,
+    textAlign: 'center',
+    marginVertical: 20,
   },
   lineContainer: {
+    alignItems: 'center',
+  },
+  line: {
     width: 50,
     height: 1,
     backgroundColor: 'white',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  line: {
-    flex: 1,
-    borderBottomWidth: 1,
-    borderBottomColor: 'white',
+    marginVertical: 20,
   },
   noFavoritesText: {
     color: 'white',
     fontSize: 16,
+    textAlign: 'center',
   },
   logo: {
     width: 50,
     height: 50,
     resizeMode: 'contain',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 16,
+    marginTop: 10,
   },
 });
 
